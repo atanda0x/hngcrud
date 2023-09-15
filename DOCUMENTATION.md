@@ -6,7 +6,7 @@ This is the documentation for the Person Management API, a simple API for managi
 ![UML Diagram](./uml.png)
 
 ## Base URL
-The base URL for all API endpoints is: https://crud-jfj9.onrender.com/api/persons
+The base URL for all API endpoints is: https://crud-x8cw.onrender.com/api/persons/2
 
 Endpoints
 Create a New Person
@@ -16,17 +16,18 @@ Request Body:
 json
 `
 {
-  "first_name": "John",
-  "last_name": "Doe"
+  "id": 2,
+  "first_name": "0x",
+  "last_name": "atanda"
 }`
 Response:
 Status Code: 201 Created
 Response Body:
 json
 `{
-  "id": 1,
-  "first_name": "John",
-  "last_name": "Doe"
+  "id": 2,
+  "first_name": "0x",
+  "last_name": "atanda"
 }`
 
 Get Details of a Person
@@ -37,9 +38,9 @@ Status Code: 200 OK
 Response Body:
 json
 `{
-  "id": 1,
-  "first_name": "John",
-  "last_name": "Doe"
+  "id": 2,
+  "first_name": "0x",
+  "last_name": "atanda"
 }`
 
 Update Details of an Existing Person
@@ -48,8 +49,9 @@ Method: PUT
 Request Body:
 json
 `{
-  "first_name": "Updated John",
-  "last_name": "Updated Doe"
+  "id": 2,
+  "first_name": "0x",
+  "last_name": "atanda"
 }`
 
 Response:
@@ -77,30 +79,30 @@ json
 Copy code
 `{
   "id": 2,
-  "first_name": "Alice",
-  "last_name": "Johnson"
+  "first_name": "0x",
+  "last_name": "atanda"
 }`
 Get Details of a Person
 Request:
 
 bash
 Copy code
-curl https://crud-jfj9.onrender.com/api/persons/2
+curl https://crud-x8cw.onrender.com/api/persons/2
 Response:
 
 json
 Copy code
-{
+`{
   "id": 2,
-  "first_name": "Alice",
-  "last_name": "Johnson"
-}
+  "first_name": "0x",
+  "last_name": "atanda"
+}`
 Update Details of an Existing Person
 Request:
 
 bash
 Copy code
-curl -X PUT -H "Content-Type: application/json" -d '{"first_name": "Updated Alice", "last_name": "Updated Johnson"}' https://crud-jfj9.onrender.com/api/persons/2
+curl -X PUT -H "Content-Type: application/json" -d '{"first_name": "Updated Alice", "last_name": "Updated Johnson"}' https://crud-x8cw.onrender.com/api/persons/2
 
 Response:
 
@@ -112,7 +114,7 @@ Request:
 
 bash
 Copy code
-curl -X DELETE https://crud-jfj9.onrender.com/api/persons2
+curl -X DELETE https://crud-x8cw.onrender.com/api/persons/2
 Response:
 
 bash
@@ -126,4 +128,4 @@ Clone the repository.
 Install the required Go packages: go get github.com/gorilla/mux and go get github.com/lib/pq.
 Modify the database connection settings in the code (DBHost, DBPort, DBUser, DBPassword, DBName) to match your PostgreSQL configuration.
 Run the API: go run main.go
-The API will be accessible at https://crud-jfj9.onrender.com/api/personss.
+The API will be accessible at https://crud-x8cw.onrender.com/api/persons/2.
