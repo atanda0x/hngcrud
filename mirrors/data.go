@@ -1,6 +1,8 @@
 package mirrors
 
 // MirrorList is list of Debian mirror sites
+
+// . This map holds information on the URL to reach the mirror site
 var MirrorList = [...]string{
 	"http://ftp.am.debian.org/debian/",
 	"http://ftp.au.debian.org/debian/",
