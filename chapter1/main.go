@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/atanda0x/mirrorFinder/mirrors"
+	"github.com/atanda0x/mirrorFinder/chapter1/mirrors"
 )
 
 type response struct {
