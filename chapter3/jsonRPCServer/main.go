@@ -1,11 +1,15 @@
 package main
 
 import (
-	"encoding/json"
+	jsonparse "encoding/json"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/gorilla/mux"
+	"github.com/gorilla/rpc"
+	"github.com/gorilla/rpc/json"
 )
 
 type Book struct {
@@ -19,10 +23,10 @@ type Args struct {
 	ID string
 }
 
-type JSONSerevr struct{}
+type JSONServer struct{}
 
-// GiveBookDetail is RPC implemetation
-func (j *JSONSerevr) GiveBookDetail(r *http.Request, arg *Args, reply *Book) error {
+// GiveBookDetail is RPC implementation
+func (j *JSONServer) GiveBookDetail(r *http.Request, arg *Args, reply *Book) error {
 	var books []Book
 
 	// Read JSON file and load data
@@ -30,14 +34,14 @@ func (j *JSONSerevr) GiveBookDetail(r *http.Request, arg *Args, reply *Book) err
 	raw, readerr := os.ReadFile(absPath)
 	if readerr != nil {
 		log.Println("error: ", readerr)
-		os.Exit(1)
+		return readerr
 	}
 
 	// Unmarshal JSON raw data into book array
-	marshalerr := json.Unmarshal(raw, &books)
+	marshalerr := jsonparse.Unmarshal(raw, &books)
 	if marshalerr != nil {
 		log.Println("error: ", marshalerr)
-		os.Exit(1)
+		return marshalerr
 	}
 
 	// Iterate over each book to find the given book
@@ -53,15 +57,13 @@ func (j *JSONSerevr) GiveBookDetail(r *http.Request, arg *Args, reply *Book) err
 }
 
 func main() {
-	// // Create a new RPC Server
-	// serv := rpc.Server{}
-
-	// // Register the type of data requested as JSON
-	// serv.RegisterName("application/json", jsonrpc.NewServerCodec())
-
-	// // Rgister the service by creating a new JSON server
-	// serv.Register(new(JSONSerevr), "")
-	// r := mux.NewRouter()
-	// r.Handle("/rpc", &serv)
-	// http.ListenAndServe(":1234", r)
+	// Create a new RPC server
+	s := rpc.NewServer()
+	// Register the type of data requested as JSON
+	s.RegisterCodec(json.NewCodec(), "application/json")
+	// Register the service by creating a new JSON server
+	s.RegisterService(new(JSONServer), "")
+	r := mux.NewRouter()
+	r.Handle("/rpc", s)
+	http.ListenAndServe(":1234", r)
 }
